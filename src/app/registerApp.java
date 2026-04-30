@@ -12,60 +12,60 @@ public class registerApp {
     public static void main(String[] args) {
         register worker = new register();
         JFrame frame = new JFrame("Register");
-        JLabel firstNameLabel = new JLabel("First name:");
-        JTextField firstNameInput = new JTextField();
+        JLabel fullNameLabel = new JLabel("Full name:");
+        JTextField fullNameInput = new JTextField();
 
-        JLabel lastNameLabel = new JLabel("Last name:");
-        JTextField lastNameInput = new JTextField();
+        JLabel ageLabel = new JLabel("Age:");
+        JTextField ageInput = new JTextField();
 
-        JLabel birthDateLabel = new JLabel("Date of birth:");
-        JLabel dateLabel = new JLabel("(25/04/2550)");
-        JTextField birthDateInput = new JTextField();
+        JLabel GenderLabel = new JLabel("Gender:");
+        JTextField GenderInput = new JTextField();
+
+        JLabel diseaseLabel = new JLabel("โรคประจำตัว:");
+        JTextField diseaseInput = new JTextField();
+
+        JLabel bloodLabel = new JLabel("กรุ๊ปเลือด:");
+        JTextField bloodInput = new JTextField();
 
         JButton backButton = new JButton("Back");
         JButton saveButton = new JButton("Save");
 
-        firstNameLabel.setBounds(30, 25, 100, 25);
-        firstNameInput.setBounds(130, 25, 180, 25);
+        fullNameLabel.setBounds(30, 25, 100, 25);
+        fullNameInput.setBounds(130, 25, 180, 25);
 
-        lastNameLabel.setBounds(30, 65, 100, 25);
-        lastNameInput.setBounds(130, 65, 180, 25);
+        ageLabel.setBounds(30, 65, 100, 25);
+        ageInput.setBounds(130, 65, 180, 25);
 
-        birthDateLabel.setBounds(30, 105, 100, 25);
-        dateLabel.setBounds(30, 118, 100, 25);
-        birthDateInput.setBounds(130, 105, 180, 25);
+        GenderLabel.setBounds(30, 105, 100, 25);
+        GenderInput.setBounds(130, 105, 180, 25);
 
-        backButton.setBounds(60, 150, 90, 30);
-        saveButton.setBounds(190, 150, 90, 30);
+        diseaseLabel.setBounds(30, 145, 100, 25);
+        diseaseInput.setBounds(130, 145, 180, 25);
 
-        saveButton.addActionListener(e -> {
-            String firstName = firstNameInput.getText();
-            String lastName = lastNameInput.getText();
-            String dateOfBirth = birthDateInput.getText();
+        bloodLabel.setBounds(30, 185, 100, 25);
+        bloodInput.setBounds(130, 185, 180, 25);
 
-            worker.insertData(firstName, lastName, dateOfBirth);
-
-            JOptionPane.showMessageDialog(frame, "Register succeed");
-            firstNameInput.setText("");
-            lastNameInput.setText("");
-            birthDateInput.setText("");
-        });
+        backButton.setBounds(60, 225, 90, 30);
+        saveButton.setBounds(190, 225, 90, 30);
 
         backButton.addActionListener(e -> {
             frame.dispose();
             main.main(new String[0]);
         });
 
-        frame.add(firstNameLabel);
-        frame.add(firstNameInput);
-        frame.add(lastNameLabel);
-        frame.add(lastNameInput);
-        frame.add(birthDateLabel);
-        frame.add(dateLabel);
-        frame.add(birthDateInput);
+        frame.add(fullNameLabel);
+        frame.add(fullNameInput);
+        frame.add(ageLabel);
+        frame.add(ageInput);
+        frame.add(GenderLabel);
+        frame.add(GenderInput);
+        frame.add(diseaseLabel);
+        frame.add(diseaseInput);
+        frame.add(bloodLabel);
+        frame.add(bloodInput);
         frame.add(backButton);
         frame.add(saveButton);
-        frame.setSize(360, 250);
+        frame.setSize(360, 310);
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
