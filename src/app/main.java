@@ -2,7 +2,6 @@ package app;
 
 import java.awt.Font;
 import java.util.Enumeration;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,10 +24,10 @@ public class main {
         dashButton.setBounds(70, 120, 250, 25);
         frame.setSize(400, 250);
         findButton.addActionListener(e -> {
-            int id = idInput.getText();
+            String id = idInput.getText();
         });
         dashButton.addActionListener(e -> {
-            int id = idInput.getText();
+            String id = idInput.getText();
         });
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

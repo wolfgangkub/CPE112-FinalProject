@@ -8,7 +8,7 @@ import java.io.FileReader;
 public class register {
 
     public void insertData(String firstName, String lasttName, String dateOfBirth) {
-        try (FileWriter writer = new FileWriter("src/Data/dataList.txt", true)) {
+        try (FileWriter writer = new FileWriter("Data/dataList.txt", true)) {
             writer.write(firstName + "  " + lasttName + "  " + dateOfBirth + "\n");
             System.out.println("Register succeed");
         } catch (IOException e) {
@@ -17,7 +17,7 @@ public class register {
     }
 
     public void searchData(String keyword) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/Data/dataList.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("Data/dataList.txt"))) {
             String line;
 
             while ((line = reader.readLine()) != null) {
