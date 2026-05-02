@@ -8,9 +8,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
+import storage.DataManeger;
 
 public class WelcomeFrame {
     public static void main(String[] args) {
+        DataManeger data = new DataManeger();
         setUIFont(new FontUIResource(new Font("Tahoma", Font.PLAIN, 14)));
         JFrame frame = new JFrame("Welcome to hospital");
         JLabel idLebel = new JLabel("กรุณากรอกเลขประจำตัว (ID):");
@@ -24,7 +26,14 @@ public class WelcomeFrame {
         dashButton.setBounds(70, 120, 250, 25);
         frame.setSize(400, 250);
         findButton.addActionListener(e -> {
-            String id = idInput.getText();
+            String id = idInput.getText().trim();
+            if (data.findPatient(id)) {
+                frame.dispose();
+                TriageFrame.main(new String[0]);
+            } else {
+                frame.dispose();
+                RegisterFrame.open(id);
+            }
         });
         dashButton.addActionListener(e -> {
             frame.dispose();
