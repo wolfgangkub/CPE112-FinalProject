@@ -1,4 +1,4 @@
-package hospitalSystem;
+package logic;
 
 import java.io.FileWriter;
 import java.io.IOException;

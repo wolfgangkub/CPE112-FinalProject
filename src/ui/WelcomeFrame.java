@@ -1,4 +1,4 @@
-package app;
+package ui;
 
 import java.awt.Font;
 import java.util.Enumeration;
@@ -9,7 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 
-public class main {
+public class WelcomeFrame {
     public static void main(String[] args) {
         setUIFont(new FontUIResource(new Font("Tahoma", Font.PLAIN, 14)));
         JFrame frame = new JFrame("Welcome to hospital");
@@ -27,7 +27,8 @@ public class main {
             String id = idInput.getText();
         });
         dashButton.addActionListener(e -> {
-            String id = idInput.getText();
+            frame.dispose();
+            DashBoard.main(new String[0]);
         });
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,4 +1,4 @@
-package app;
+package ui;
 
 import java.awt.Font;
 
@@ -15,7 +15,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
-public class triageSystem {
+public class TriageFrame {
     public static void main(String[] args) {
         JFrame frame = new JFrame("ซักประวัติและอาการ");
         JPanel patientPanel = new JPanel();
