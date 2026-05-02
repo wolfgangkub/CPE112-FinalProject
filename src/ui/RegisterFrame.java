@@ -4,12 +4,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
-import logic.register;
+import storage.DataManeger;
 
 public class RegisterFrame {
     public static void main(String[] args) {
-        register worker = new register();
+        open("");
+    }
+
+    public static void open(String id) {
+        DataManeger data = new DataManeger();
         JFrame frame = new JFrame("Register");
         JLabel fullNameLabel = new JLabel("Full name:");
         JTextField fullNameInput = new JTextField();
@@ -28,6 +33,19 @@ public class RegisterFrame {
 
         JButton backButton = new JButton("Back");
         JButton saveButton = new JButton("Save");
+
+        saveButton.addActionListener(e -> {
+            String name = fullNameInput.getText();
+            String age = ageInput.getText();
+            String gender = GenderInput.getText();
+            String disease = diseaseInput.getText();
+            String bloodGroup = bloodInput.getText();
+            data.register(id, name, age, gender, disease, bloodGroup);
+            JOptionPane.showMessageDialog(null, "บันทึกข้อมูลเสร็จเรียบร้อยแล้ว!", "แจ้งเตือน",
+                    JOptionPane.INFORMATION_MESSAGE);
+            frame.dispose();
+            TriageFrame.main(new String[0]);
+        });
 
         fullNameLabel.setBounds(30, 25, 100, 25);
         fullNameInput.setBounds(130, 25, 180, 25);
