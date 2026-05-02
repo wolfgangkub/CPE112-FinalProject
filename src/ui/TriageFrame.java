@@ -1,7 +1,6 @@
 package ui;
 
 import java.awt.Font;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -17,10 +16,14 @@ import javax.swing.text.DocumentFilter;
 
 public class TriageFrame {
     public static void main(String[] args) {
+        open("", "");
+    }
+
+    public static void open(String name, String disease) {
         JFrame frame = new JFrame("ซักประวัติและอาการ");
         JPanel patientPanel = new JPanel();
-        JLabel nameLabel = new JLabel("ชื่อ:");
-        JLabel diseaseLabel = new JLabel("โรคประจำตัว: ");
+        JLabel nameLabel = new JLabel("ชื่อ: " + name);
+        JLabel diseaseLabel = new JLabel("โรคประจำตัว: " + disease);
 
         TitledBorder patientBorder = BorderFactory.createTitledBorder("ข้อมูลผู้ป่วย");
         patientPanel.setBorder(patientBorder);
@@ -82,7 +85,7 @@ public class TriageFrame {
         frame.setVisible(true);
     }
 
-    private static class NumberRangeFilter extends DocumentFilter {
+    private static class NumberRangeFilter extends DocumentFilter { // ตัวดักว่าให้ใส่ได้ไม่เกินเท่าไหร่ๆ
         private final int min;
         private final int max;
 

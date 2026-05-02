@@ -44,7 +44,7 @@ public class RegisterFrame {
             JOptionPane.showMessageDialog(null, "บันทึกข้อมูลเสร็จเรียบร้อยแล้ว!", "แจ้งเตือน",
                     JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();
-            TriageFrame.main(new String[0]);
+            TriageFrame.open(name, disease);
         });
 
         fullNameLabel.setBounds(30, 25, 100, 25);
