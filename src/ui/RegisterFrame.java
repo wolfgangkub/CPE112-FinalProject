@@ -1,13 +1,13 @@
-package app;
-
-import hospitalSystem.register;
+package ui;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class registerApp {
+import logic.register;
+
+public class RegisterFrame {
     public static void main(String[] args) {
         register worker = new register();
         JFrame frame = new JFrame("Register");
@@ -49,7 +49,7 @@ public class registerApp {
 
         backButton.addActionListener(e -> {
             frame.dispose();
-            main.main(new String[0]);
+            WelcomeFrame.main(new String[0]);
         });
 
         frame.add(fullNameLabel);
