@@ -29,7 +29,7 @@ public class WelcomeFrame {
             String id = idInput.getText().trim();
             if (data.findPatient(id)) {
                 frame.dispose();
-                TriageFrame.main(new String[0]);
+                TriageFrame.open(data.returnName(id), data.returnDisease(id));
             } else {
                 frame.dispose();
                 RegisterFrame.open(id);
