@@ -53,7 +53,7 @@ public class registerApp {
 
         backButton.addActionListener(e -> {
             frame.dispose();
-            main.main(new String[0]);
+            Main.main(new String[0]);
         });
 
         frame.add(firstNameLabel);

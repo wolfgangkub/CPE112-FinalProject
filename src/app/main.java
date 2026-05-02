@@ -3,7 +3,7 @@ package app;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Welcome to hospital");
         JButton buttonRegister = new JButton("Register");

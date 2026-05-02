@@ -1,5 +1,7 @@
 package datastruct;
 
+import model.Patient;
+
 public class Stack {
     private Node top;
 

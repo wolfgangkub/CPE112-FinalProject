@@ -1,5 +1,7 @@
 package datastruct;
 
+import model.Patient;
+
 public class Node {
     public Patient data;
     public Node next;
