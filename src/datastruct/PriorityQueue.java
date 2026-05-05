@@ -3,7 +3,7 @@ package datastruct;
 import model.Patient;
 
 // สืบทอดมาจาก MyQueue แต่เปลี่ยนวิธีแทรกข้อมูล (enqueue)
-public class PriolityQueue extends Queue {
+public class PriorityQueue extends Queue {
     @Override
     public void enqueue(Patient patient) {
         Node newNode = new Node(patient);

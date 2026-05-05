@@ -7,23 +7,27 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
+import logic.QueueManeger;
+import model.Patient;
 
 public class TriageFrame {
     public static void main(String[] args) {
-        open("", "");
+        open(null);
     }
 
-    public static void open(String name, String disease) {
+    public static void open(Patient patient) {
         JFrame frame = new JFrame("ซักประวัติและอาการ");
         JPanel patientPanel = new JPanel();
-        JLabel nameLabel = new JLabel("ชื่อ: " + name);
-        JLabel diseaseLabel = new JLabel("โรคประจำตัว: " + disease);
+        JLabel nameLabel = new JLabel("ชื่อ: " + patient.getName());
+        JLabel diseaseLabel = new JLabel("โรคประจำตัว: " + patient.getUnderlyingDisease());
 
         TitledBorder patientBorder = BorderFactory.createTitledBorder("ข้อมูลผู้ป่วย");
         patientPanel.setBorder(patientBorder);
@@ -39,20 +43,24 @@ public class TriageFrame {
         JTextField primaryInput = new JTextField();
 
         JLabel painJLabel = new JLabel("ระดับความเจ็บปวด (0 - 10):");
-        JTextField painInput = new JTextField();
-        ((AbstractDocument) painInput.getDocument()).setDocumentFilter(new NumberRangeFilter(0, 10));
+        JSpinner painInput = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
 
         JLabel hrLabel = new JLabel("ระดับความหายใจลำบาก (0 - 10):");
-        JTextField hrInput = new JTextField();
-        ((AbstractDocument) hrInput.getDocument()).setDocumentFilter(new NumberRangeFilter(0, 10));
+        JSpinner hrInput = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
 
         JLabel tempLabel = new JLabel("อุณหภูมิร่างกาย (°C):");
-        JTextField tempInput = new JTextField();
+        JSpinner tempInput = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
 
         JLabel erLabel = new JLabel("อาการวิกฤต (หมดสติ/เลือดออกหนัก):");
         JCheckBox erInput = new JCheckBox("ใช่(ฉุกเฉิน)");
 
         JButton finish = new JButton("ประเมินและจัดคิว");
+
+        finish.addActionListener(e -> {
+            int pain = (int) painInput.getValue();
+            int hr = (int) hrInput.getValue();
+            QueueManeger.sendPatient(primaryInput.getText(), erInput.isSelected(), patient, pain, hr);
+        });
 
         primaryLabel.setBounds(25, 100, 120, 25);
         primaryInput.setBounds(150, 100, 220, 25);
@@ -83,42 +91,5 @@ public class TriageFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-    }
-
-    private static class NumberRangeFilter extends DocumentFilter { // ตัวดักว่าให้ใส่ได้ไม่เกินเท่าไหร่ๆ
-        private final int min;
-        private final int max;
-
-        NumberRangeFilter(int min, int max) {
-            this.min = min;
-            this.max = max;
-        }
-
-        @Override
-        public void insertString(FilterBypass fb, int offset, String text, AttributeSet attrs)
-                throws BadLocationException {
-            replace(fb, offset, 0, text, attrs);
-        }
-
-        @Override
-        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
-                throws BadLocationException {
-            String currentText = fb.getDocument().getText(0, fb.getDocument().getLength());
-            String nextText = currentText.substring(0, offset) + text + currentText.substring(offset + length);
-
-            if (nextText.isEmpty()) {
-                super.replace(fb, offset, length, text, attrs);
-                return;
-            }
-
-            if (!nextText.matches("\\d+")) {
-                return;
-            }
-
-            int value = Integer.parseInt(nextText);
-            if (value >= min && value <= max) {
-                super.replace(fb, offset, length, text, attrs);
-            }
-        }
     }
 }

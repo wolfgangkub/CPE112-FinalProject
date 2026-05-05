@@ -4,7 +4,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+
+import model.Patient;
 
 import storage.DataManeger;
 
@@ -20,7 +25,7 @@ public class RegisterFrame {
         JTextField fullNameInput = new JTextField();
 
         JLabel ageLabel = new JLabel("Age:");
-        JTextField ageInput = new JTextField();
+        JSpinner ageInput = new JSpinner(new SpinnerNumberModel(1, 1, 120, 1));
 
         JLabel GenderLabel = new JLabel("Gender:");
         JTextField GenderInput = new JTextField();
@@ -36,15 +41,16 @@ public class RegisterFrame {
 
         saveButton.addActionListener(e -> {
             String name = fullNameInput.getText();
-            String age = ageInput.getText();
+            int age = (int) ageInput.getValue();
             String gender = GenderInput.getText();
             String disease = diseaseInput.getText();
             String bloodGroup = bloodInput.getText();
             data.register(id, name, age, gender, disease, bloodGroup);
+            Patient patient = new Patient(id, name, age, gender, disease, bloodGroup);
             JOptionPane.showMessageDialog(null, "บันทึกข้อมูลเสร็จเรียบร้อยแล้ว!", "แจ้งเตือน",
                     JOptionPane.INFORMATION_MESSAGE);
             frame.dispose();
-            TriageFrame.open(name, disease);
+            TriageFrame.open(patient);
         });
 
         fullNameLabel.setBounds(30, 25, 100, 25);
