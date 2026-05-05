@@ -1,15 +1,29 @@
 package logic;
 
+import datastruct.Queue;
+import datastruct.PriorityQueue;
+import model.Patient;
+
 public class QueueManeger {
-    public void sendPatient(String sentence) {
-        if (sentence.contains("หน้าอก") || sentence.contains("หัวใจ")) {
-            // ส่งไปแผนกcadio
+    private static Queue cadio = new Queue();
+    private static Queue neuro = new Queue();
+    private static Queue ortho = new Queue();
+    private static Queue general = new Queue();
+    private static PriorityQueue emergency = new PriorityQueue();
+
+    public static void sendPatient(String sentence, boolean er, Patient patient, int pain, int hr) {
+        TriageMeneger piority = new TriageMeneger();
+        if (er) {
+            patient.setPriorityScore(piority.priorityScore(pain, hr, patient.getAge()));
+            emergency.enqueue(patient);
+        } else if (sentence.contains("หน้าอก") || sentence.contains("หัวใจ")) {
+            cadio.enqueue(patient);
         } else if (sentence.contains("หัว")) {
-            // ส่งไปแผนกNeuro
+            neuro.enqueue(patient);
         } else if (sentence.contains("กระดูก")) {
-            // ส่งไปแผนก ortho
+            ortho.enqueue(patient);
         } else {
-            // ส่งไปgeneral
+            general.enqueue(patient);
         }
     }
 }
