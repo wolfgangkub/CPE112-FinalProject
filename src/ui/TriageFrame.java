@@ -60,6 +60,8 @@ public class TriageFrame {
             int pain = (int) painInput.getValue();
             int hr = (int) hrInput.getValue();
             QueueManeger.sendPatient(primaryInput.getText(), erInput.isSelected(), patient, pain, hr);
+            frame.dispose();
+            DashBoard.main(new String[0]);
         });
 
         primaryLabel.setBounds(25, 100, 120, 25);

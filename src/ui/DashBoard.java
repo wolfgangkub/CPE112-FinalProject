@@ -11,10 +11,6 @@ import javax.swing.border.TitledBorder;
 
 public class DashBoard {
     public static void main(String[] args) {
-
-    }
-
-    public static void open() {
         JFrame frame = new JFrame("Dashboard");
         JLabel main = new JLabel("ระบบจัดการคิวในโรงพยาบาล");
         main.setBounds(480, 10, 250, 25);
@@ -140,5 +136,6 @@ public class DashBoard {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
     }
 }
