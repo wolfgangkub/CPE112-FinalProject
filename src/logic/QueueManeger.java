@@ -26,4 +26,10 @@ public class QueueManeger {
             general.enqueue(patient);
         }
     }
+
+    public static Queue getCadio() { return cadio; }
+    public static Queue getNeuro() { return neuro; }
+    public static Queue getOrtho() { return ortho; }
+    public static Queue getGeneral() { return general; }
+    public static PriorityQueue getEmergency() { return emergency; }
 }

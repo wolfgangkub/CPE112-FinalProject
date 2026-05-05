@@ -54,7 +54,13 @@ public class TriageFrame {
         JLabel erLabel = new JLabel("อาการวิกฤต (หมดสติ/เลือดออกหนัก):");
         JCheckBox erInput = new JCheckBox("ใช่(ฉุกเฉิน)");
 
+        JButton backButton = new JButton("ย้อนกลับ");
         JButton finish = new JButton("ประเมินและจัดคิว");
+
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            WelcomeFrame.main(new String[0]);
+        });
 
         finish.addActionListener(e -> {
             int pain = (int) painInput.getValue();
@@ -74,7 +80,8 @@ public class TriageFrame {
         tempInput.setBounds(200, 220, 170, 25);
         erLabel.setBounds(25, 260, 240, 25);
         erInput.setBounds(260, 260, 120, 25);
-        finish.setBounds(115, 310, 170, 30);
+        backButton.setBounds(60, 310, 90, 30);
+        finish.setBounds(165, 310, 150, 30);
 
         frame.add(patientPanel);
         frame.add(primaryLabel);
@@ -87,6 +94,7 @@ public class TriageFrame {
         frame.add(tempInput);
         frame.add(erLabel);
         frame.add(erInput);
+        frame.add(backButton);
         frame.add(finish);
         frame.setSize(400, 380);
         frame.setLayout(null);
