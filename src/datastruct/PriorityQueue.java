@@ -12,6 +12,7 @@ public class PriorityQueue extends Queue {
             front = newNode;
             rear = newNode;
             size++;
+            return;
         }
 
         // กรณีที่คิวใหม่สำคัญกว่า(หรือเท่ากับ)คิวแรกสุด (front)

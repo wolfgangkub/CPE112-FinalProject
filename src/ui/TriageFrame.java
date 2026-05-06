@@ -17,6 +17,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import logic.QueueManeger;
 import model.Patient;
+import storage.History;
 
 public class TriageFrame {
     public static void main(String[] args) {
@@ -24,6 +25,7 @@ public class TriageFrame {
     }
 
     public static void open(Patient patient) {
+        History history = new History();
         JFrame frame = new JFrame("ซักประวัติและอาการ");
         JPanel patientPanel = new JPanel();
         JLabel nameLabel = new JLabel("ชื่อ: " + patient.getName());
@@ -66,6 +68,7 @@ public class TriageFrame {
             int pain = (int) painInput.getValue();
             int hr = (int) hrInput.getValue();
             QueueManeger.sendPatient(primaryInput.getText(), erInput.isSelected(), patient, pain, hr);
+            history.insert(patient.getName(), primaryInput.getText());
             frame.dispose();
             DashBoard.main(new String[0]);
         });

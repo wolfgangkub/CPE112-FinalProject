@@ -13,6 +13,7 @@ import logic.QueueManeger;
 import datastruct.Queue;
 import datastruct.Node;
 import model.Patient;
+import java.awt.Toolkit;
 
 public class DashBoard {
     public static void main(String[] args) {
@@ -224,4 +225,18 @@ public class DashBoard {
         box.revalidate();
         box.repaint();
     }
+
+    public static void emergencyBeep() {
+        new Thread(() -> {
+            try {
+                for (int i = 0; i < 20; i++) {
+                    java.awt.Toolkit.getDefaultToolkit().beep();
+                    Thread.sleep(90);
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
 }
