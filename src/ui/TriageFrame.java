@@ -67,8 +67,8 @@ public class TriageFrame {
         finish.addActionListener(e -> {
             int pain = (int) painInput.getValue();
             int hr = (int) hrInput.getValue();
+            patient.setSymptoms(primaryInput.getText());
             QueueManeger.sendPatient(primaryInput.getText(), erInput.isSelected(), patient, pain, hr);
-            history.insert(patient.getName(), primaryInput.getText());
             frame.dispose();
             DashBoard.main(new String[0]);
         });

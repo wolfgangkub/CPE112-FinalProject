@@ -17,7 +17,7 @@ public class PriorityQueue extends Queue {
 
         // กรณีที่คิวใหม่สำคัญกว่า(หรือเท่ากับ)คิวแรกสุด (front)
         // ให้อยู่หน้าสุดเลย
-        if (patient.getPriorityScore() > front.data.getPriorityScore()) {
+        if (patient.getPriorityScore() > front.data.getDynamicPriorityScore()) {
             newNode.next = front;
             front = newNode;
             size++;
@@ -28,7 +28,7 @@ public class PriorityQueue extends Queue {
         Node current = front;
         // วนหาตำแหน่งจนกว่าจะเจอจุดที่คิวต่อไปมีความสำคัญน้อยกว่าตัวผู้ป่วยใหม่
 
-        while (current.next != null && current.data.getPriorityScore() >= patient.getPriorityScore()) {
+        while (current.next != null && current.next.data.getDynamicPriorityScore() >= patient.getPriorityScore()) {
             current = current.next;
         }
         newNode.next = current.next;

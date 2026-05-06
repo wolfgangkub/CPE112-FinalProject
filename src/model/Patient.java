@@ -11,6 +11,7 @@ public class Patient {
     private int priorityScore;
     private String department;
     private String symptoms;
+    private long enqueueTime;
 
     public Patient(String id, String name, int age, String gender, String underlyingDisease, String bloodGroup) {
         this.id = id;
@@ -22,6 +23,7 @@ public class Patient {
         this.priorityScore = 0;
         this.department = "NONE";
         this.symptoms = "-";
+        this.enqueueTime = System.currentTimeMillis();
     }
 
     public String getId() {
@@ -94,5 +96,18 @@ public class Patient {
 
     public void setSymptoms(String symptoms) {
         this.symptoms = symptoms;
+    }
+
+    public long getEnqueueTime() {
+        return enqueueTime;
+    }
+
+    public void setEnqueueTime(long enqueueTime) {
+        this.enqueueTime = enqueueTime;
+    }
+
+    public int getDynamicPriorityScore() {
+        long secondsWaiting = (System.currentTimeMillis() - this.enqueueTime) / 1000;
+        return this.priorityScore + (int)secondsWaiting;
     }
 }

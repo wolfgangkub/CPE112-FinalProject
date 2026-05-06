@@ -14,9 +14,11 @@ import datastruct.Queue;
 import datastruct.Node;
 import model.Patient;
 import java.awt.Toolkit;
+import storage.History;
 
 public class DashBoard {
     public static void main(String[] args) {
+        History history = new History();
         JFrame frame = new JFrame("Dashboard");
         JLabel main = new JLabel("ระบบจัดการคิวในโรงพยาบาล");
         main.setBounds(480, 10, 250, 25);
@@ -27,7 +29,7 @@ public class DashBoard {
         queueContainer.setBounds(20, 35, 1100, 420);
 
         JPanel emergencyPanel = new JPanel();
-        TitledBorder emergencyBorder = BorderFactory.createTitledBorder("EMERGENCY🚨");
+        TitledBorder emergencyBorder = BorderFactory.createTitledBorder("EMERGENCY");
         emergencyBorder.setTitleColor(Color.BLACK);
         emergencyPanel.setBorder(emergencyBorder);
         emergencyPanel.setLayout(null);
@@ -45,6 +47,7 @@ public class DashBoard {
         emergencyButton.addActionListener(e -> {
             Patient p = QueueManeger.getEmergency().dequeue();
             if (p != null) {
+                history.insert(p.getId(), p.getName(), p.getSymptoms(), p.getDepartment());
                 JOptionPane.showMessageDialog(frame, "เชิญคุณ " + p.getName() + " ไปที่ห้องตรวจฉุกเฉิน");
                 updateQueueView(emergencyBox, QueueManeger.getEmergency());
             } else {
@@ -54,7 +57,7 @@ public class DashBoard {
         emergencyPanel.add(emergencyButton);
 
         JPanel cadioPanel = new JPanel();
-        TitledBorder cadioBorder = BorderFactory.createTitledBorder("CADIO❤️");
+        TitledBorder cadioBorder = BorderFactory.createTitledBorder("CADIO");
         cadioPanel.setBorder(cadioBorder);
         cadioPanel.setLayout(null);
         cadioPanel.setBounds(230, 10, 200, 400);
@@ -71,6 +74,7 @@ public class DashBoard {
         cadioButton.addActionListener(e -> {
             Patient p = QueueManeger.getCadio().dequeue();
             if (p != null) {
+                history.insert(p.getId(), p.getName(), p.getSymptoms(), p.getDepartment());
                 JOptionPane.showMessageDialog(frame, "เชิญคุณ " + p.getName() + " ไปที่ห้องตรวจ CADIO");
                 updateQueueView(cadioBox, QueueManeger.getCadio());
             } else {
@@ -80,7 +84,7 @@ public class DashBoard {
         cadioPanel.add(cadioButton);
 
         JPanel orthoPanel = new JPanel();
-        TitledBorder orthBorder = BorderFactory.createTitledBorder("ORTHO🦴");
+        TitledBorder orthBorder = BorderFactory.createTitledBorder("ORTHO");
         orthoPanel.setBorder(orthBorder);
         orthoPanel.setLayout(null);
         orthoPanel.setBounds(450, 10, 200, 400);
@@ -97,6 +101,7 @@ public class DashBoard {
         orthoButton.addActionListener(e -> {
             Patient p = QueueManeger.getOrtho().dequeue();
             if (p != null) {
+                history.insert(p.getId(), p.getName(), p.getSymptoms(), p.getDepartment());
                 JOptionPane.showMessageDialog(frame, "เชิญคุณ " + p.getName() + " ไปที่ห้องตรวจ ORTHO");
                 updateQueueView(orthoBox, QueueManeger.getOrtho());
             } else {
@@ -106,7 +111,7 @@ public class DashBoard {
         orthoPanel.add(orthoButton);
 
         JPanel neuroPanel = new JPanel();
-        TitledBorder neuroBorder = BorderFactory.createTitledBorder("NEURO🧠");
+        TitledBorder neuroBorder = BorderFactory.createTitledBorder("NEURO");
         neuroPanel.setBorder(neuroBorder);
         neuroPanel.setLayout(null);
         neuroPanel.setBounds(670, 10, 200, 400);
@@ -123,6 +128,7 @@ public class DashBoard {
         neuroButton.addActionListener(e -> {
             Patient p = QueueManeger.getNeuro().dequeue();
             if (p != null) {
+                history.insert(p.getId(), p.getName(), p.getSymptoms(), p.getDepartment());
                 JOptionPane.showMessageDialog(frame, "เชิญคุณ " + p.getName() + " ไปที่ห้องตรวจ NEURO");
                 updateQueueView(neuroBox, QueueManeger.getNeuro());
             } else {
@@ -132,7 +138,7 @@ public class DashBoard {
         neuroPanel.add(neuroButton);
 
         JPanel generalPane = new JPanel();
-        TitledBorder generalBorder = BorderFactory.createTitledBorder("GENERAL🟢");
+        TitledBorder generalBorder = BorderFactory.createTitledBorder("GENERAL");
         generalPane.setBorder(generalBorder);
         generalPane.setLayout(null);
         generalPane.setBounds(890, 10, 200, 400);
@@ -149,6 +155,7 @@ public class DashBoard {
         generalButton.addActionListener(e -> {
             Patient p = QueueManeger.getGeneral().dequeue();
             if (p != null) {
+                history.insert(p.getId(), p.getName(), p.getSymptoms(), p.getDepartment());
                 JOptionPane.showMessageDialog(frame, "เชิญคุณ " + p.getName() + " ไปที่ห้องตรวจ GENERAL");
                 updateQueueView(generalBox, QueueManeger.getGeneral());
             } else {
@@ -215,7 +222,11 @@ public class DashBoard {
         Node current = queue.getHead();
         int count = 1;
         while (current != null) {
-            JLabel label = new JLabel(count + ". " + current.data.getName());
+            String text = count + ". " + current.data.getName();
+            if (queue == QueueManeger.getEmergency()) {
+                text += " (Score: " + current.data.getDynamicPriorityScore() + ")";
+            }
+            JLabel label = new JLabel(text);
             label.setBounds(5, y, 170, 20);
             box.add(label);
             y += 25;
