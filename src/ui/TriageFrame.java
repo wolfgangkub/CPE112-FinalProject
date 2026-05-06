@@ -17,6 +17,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import logic.QueueManeger;
 import model.Patient;
+import storage.History;
 
 public class TriageFrame {
     public static void main(String[] args) {
@@ -24,6 +25,7 @@ public class TriageFrame {
     }
 
     public static void open(Patient patient) {
+        History history = new History();
         JFrame frame = new JFrame("ซักประวัติและอาการ");
         JPanel patientPanel = new JPanel();
         JLabel nameLabel = new JLabel("ชื่อ: " + patient.getName());
@@ -54,12 +56,19 @@ public class TriageFrame {
         JLabel erLabel = new JLabel("อาการวิกฤต (หมดสติ/เลือดออกหนัก):");
         JCheckBox erInput = new JCheckBox("ใช่(ฉุกเฉิน)");
 
+        JButton backButton = new JButton("ย้อนกลับ");
         JButton finish = new JButton("ประเมินและจัดคิว");
+
+        backButton.addActionListener(e -> {
+            frame.dispose();
+            WelcomeFrame.main(new String[0]);
+        });
 
         finish.addActionListener(e -> {
             int pain = (int) painInput.getValue();
             int hr = (int) hrInput.getValue();
             QueueManeger.sendPatient(primaryInput.getText(), erInput.isSelected(), patient, pain, hr);
+            history.insert(patient.getName(), primaryInput.getText());
             frame.dispose();
             DashBoard.main(new String[0]);
         });
@@ -74,7 +83,8 @@ public class TriageFrame {
         tempInput.setBounds(200, 220, 170, 25);
         erLabel.setBounds(25, 260, 240, 25);
         erInput.setBounds(260, 260, 120, 25);
-        finish.setBounds(115, 310, 170, 30);
+        backButton.setBounds(60, 310, 90, 30);
+        finish.setBounds(165, 310, 150, 30);
 
         frame.add(patientPanel);
         frame.add(primaryLabel);
@@ -87,6 +97,7 @@ public class TriageFrame {
         frame.add(tempInput);
         frame.add(erLabel);
         frame.add(erInput);
+        frame.add(backButton);
         frame.add(finish);
         frame.setSize(400, 380);
         frame.setLayout(null);

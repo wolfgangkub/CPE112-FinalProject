@@ -8,6 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.swing.JOptionPane;
+import logic.QueueManeger;
+import datastruct.Queue;
+import datastruct.Node;
+import model.Patient;
+import java.awt.Toolkit;
 
 public class DashBoard {
     public static void main(String[] args) {
@@ -36,6 +42,15 @@ public class DashBoard {
 
         JButton emergencyButton = new JButton("เรียกคิวถัดไป");
         emergencyButton.setBounds(14, 367, 170, 25);
+        emergencyButton.addActionListener(e -> {
+            Patient p = QueueManeger.getEmergency().dequeue();
+            if (p != null) {
+                JOptionPane.showMessageDialog(frame, "เชิญคุณ " + p.getName() + " ไปที่ห้องตรวจฉุกเฉิน");
+                updateQueueView(emergencyBox, QueueManeger.getEmergency());
+            } else {
+                JOptionPane.showMessageDialog(frame, "ไม่มีคิวรอในแผนกนี้");
+            }
+        });
         emergencyPanel.add(emergencyButton);
 
         JPanel cadioPanel = new JPanel();
@@ -53,6 +68,15 @@ public class DashBoard {
 
         JButton cadioButton = new JButton("เรียกคิวถัดไป");
         cadioButton.setBounds(14, 367, 170, 25);
+        cadioButton.addActionListener(e -> {
+            Patient p = QueueManeger.getCadio().dequeue();
+            if (p != null) {
+                JOptionPane.showMessageDialog(frame, "เชิญคุณ " + p.getName() + " ไปที่ห้องตรวจ CADIO");
+                updateQueueView(cadioBox, QueueManeger.getCadio());
+            } else {
+                JOptionPane.showMessageDialog(frame, "ไม่มีคิวรอในแผนกนี้");
+            }
+        });
         cadioPanel.add(cadioButton);
 
         JPanel orthoPanel = new JPanel();
@@ -70,6 +94,15 @@ public class DashBoard {
 
         JButton orthoButton = new JButton("เรียกคิวถัดไป");
         orthoButton.setBounds(14, 367, 170, 25);
+        orthoButton.addActionListener(e -> {
+            Patient p = QueueManeger.getOrtho().dequeue();
+            if (p != null) {
+                JOptionPane.showMessageDialog(frame, "เชิญคุณ " + p.getName() + " ไปที่ห้องตรวจ ORTHO");
+                updateQueueView(orthoBox, QueueManeger.getOrtho());
+            } else {
+                JOptionPane.showMessageDialog(frame, "ไม่มีคิวรอในแผนกนี้");
+            }
+        });
         orthoPanel.add(orthoButton);
 
         JPanel neuroPanel = new JPanel();
@@ -87,6 +120,15 @@ public class DashBoard {
 
         JButton neuroButton = new JButton("เรียกคิวถัดไป");
         neuroButton.setBounds(14, 367, 170, 25);
+        neuroButton.addActionListener(e -> {
+            Patient p = QueueManeger.getNeuro().dequeue();
+            if (p != null) {
+                JOptionPane.showMessageDialog(frame, "เชิญคุณ " + p.getName() + " ไปที่ห้องตรวจ NEURO");
+                updateQueueView(neuroBox, QueueManeger.getNeuro());
+            } else {
+                JOptionPane.showMessageDialog(frame, "ไม่มีคิวรอในแผนกนี้");
+            }
+        });
         neuroPanel.add(neuroButton);
 
         JPanel generalPane = new JPanel();
@@ -104,10 +146,26 @@ public class DashBoard {
 
         JButton generalButton = new JButton("เรียกคิวถัดไป");
         generalButton.setBounds(14, 367, 170, 25);
+        generalButton.addActionListener(e -> {
+            Patient p = QueueManeger.getGeneral().dequeue();
+            if (p != null) {
+                JOptionPane.showMessageDialog(frame, "เชิญคุณ " + p.getName() + " ไปที่ห้องตรวจ GENERAL");
+                updateQueueView(generalBox, QueueManeger.getGeneral());
+            } else {
+                JOptionPane.showMessageDialog(frame, "ไม่มีคิวรอในแผนกนี้");
+            }
+        });
         generalPane.add(generalButton);
 
         JButton refeshButton = new JButton("รีเฟรชข้อมูลคิว");
         refeshButton.setBounds(380, 470, 120, 25);
+        refeshButton.addActionListener(e -> {
+            updateQueueView(emergencyBox, QueueManeger.getEmergency());
+            updateQueueView(cadioBox, QueueManeger.getCadio());
+            updateQueueView(orthoBox, QueueManeger.getOrtho());
+            updateQueueView(neuroBox, QueueManeger.getNeuro());
+            updateQueueView(generalBox, QueueManeger.getGeneral());
+        });
 
         JButton inpuButton = new JButton("รับผู้ป่วยใหม่");
         inpuButton.setBounds(510, 470, 120, 25);
@@ -119,6 +177,10 @@ public class DashBoard {
 
         JButton historyButton = new JButton("ดูประวัติการรักษา");
         historyButton.setBounds(640, 470, 130, 25);
+        historyButton.addActionListener(e -> {
+            frame.dispose();
+            HistoryFrame.main(new String[0]);
+        });
 
         queueContainer.add(emergencyPanel);
         queueContainer.add(cadioPanel);
@@ -135,7 +197,46 @@ public class DashBoard {
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+
+        // Initial render of queues
+        updateQueueView(emergencyBox, QueueManeger.getEmergency());
+        updateQueueView(cadioBox, QueueManeger.getCadio());
+        updateQueueView(orthoBox, QueueManeger.getOrtho());
+        updateQueueView(neuroBox, QueueManeger.getNeuro());
+        updateQueueView(generalBox, QueueManeger.getGeneral());
+
         frame.setVisible(true);
 
     }
+
+    public static void updateQueueView(JPanel box, Queue queue) {
+        box.removeAll();
+        int y = 5;
+        Node current = queue.getHead();
+        int count = 1;
+        while (current != null) {
+            JLabel label = new JLabel(count + ". " + current.data.getName());
+            label.setBounds(5, y, 170, 20);
+            box.add(label);
+            y += 25;
+            current = current.next;
+            count++;
+        }
+        box.revalidate();
+        box.repaint();
+    }
+
+    public static void emergencyBeep() {
+        new Thread(() -> {
+            try {
+                for (int i = 0; i < 20; i++) {
+                    java.awt.Toolkit.getDefaultToolkit().beep();
+                    Thread.sleep(90);
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+    }
+
 }

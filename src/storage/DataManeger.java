@@ -8,7 +8,7 @@ import java.io.IOException;
 import model.Patient;
 
 public class DataManeger {
-    private static final String PATIENT_FILE = "Patient.csv";
+    private static final String PATIENT_FILE = "src/Data/Patient.csv";
 
     public void register(String id, String name, int age, String gender, String disease, String bloodGroup) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATIENT_FILE, true))) {
