@@ -30,7 +30,7 @@ public class HistoryFrame {
         searchButton.setBounds(310, 20, 120, 25);
 
         JButton backButton = new JButton("ย้อนกลับ (กลับไป DashBoard)");
-        backButton.setBounds(120, 345, 200, 30);
+        backButton.setBounds(100, 345, 250, 30);
         backButton.addActionListener(e -> {
             frame.dispose();
             DashBoard.main(new String[0]);
@@ -83,7 +83,8 @@ public class HistoryFrame {
         int y = 5;
 
         for (int i = 0; i < lines.length; i++) {
-            if (lines[i].trim().isEmpty()) continue;
+            if (lines[i].trim().isEmpty())
+                continue;
             JLabel label = new JLabel(lines[i]);
             label.setBounds(5, y, 390, 20);
             box.add(label);

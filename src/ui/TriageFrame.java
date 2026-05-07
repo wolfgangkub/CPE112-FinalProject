@@ -47,11 +47,14 @@ public class TriageFrame {
         JLabel painJLabel = new JLabel("ระดับความเจ็บปวด (0 - 10):");
         JSpinner painInput = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
 
-        JLabel hrLabel = new JLabel("ระดับความหายใจลำบาก (0 - 10):");
-        JSpinner hrInput = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
+        JLabel hrLabel = new JLabel("อัตราการเต้นหัวใจ :");
+        JSpinner hrInput = new JSpinner(new SpinnerNumberModel(0, 0, 300, 1));
+
+        JLabel pressureLabel = new JLabel("ความดันร่างกาย :");
+        JTextField pressureInput = new JTextField();
 
         JLabel tempLabel = new JLabel("อุณหภูมิร่างกาย (°C):");
-        JSpinner tempInput = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
+        JSpinner tempInput = new JSpinner(new SpinnerNumberModel(36.5, 0.0, 100.0, 0.1));
 
         JLabel erLabel = new JLabel("อาการวิกฤต (หมดสติ/เลือดออกหนัก):");
         JCheckBox erInput = new JCheckBox("ใช่(ฉุกเฉิน)");
@@ -67,8 +70,9 @@ public class TriageFrame {
         finish.addActionListener(e -> {
             int pain = (int) painInput.getValue();
             int hr = (int) hrInput.getValue();
+            double temp = (double) tempInput.getValue();
             patient.setSymptoms(primaryInput.getText());
-            QueueManeger.sendPatient(primaryInput.getText(), erInput.isSelected(), patient, pain, hr);
+            QueueManeger.sendPatient(primaryInput.getText(), erInput.isSelected(), patient, pain, hr, temp);
             frame.dispose();
             DashBoard.main(new String[0]);
         });
@@ -78,13 +82,15 @@ public class TriageFrame {
         painJLabel.setBounds(25, 140, 170, 25);
         painInput.setBounds(200, 140, 170, 25);
         hrLabel.setBounds(25, 180, 200, 25);
-        hrInput.setBounds(225, 180, 145, 25);
-        tempLabel.setBounds(25, 220, 170, 25);
-        tempInput.setBounds(200, 220, 170, 25);
-        erLabel.setBounds(25, 260, 240, 25);
-        erInput.setBounds(260, 260, 120, 25);
-        backButton.setBounds(60, 310, 90, 30);
-        finish.setBounds(165, 310, 150, 30);
+        hrInput.setBounds(200, 180, 170, 25);
+        pressureLabel.setBounds(25, 220, 170, 25);
+        pressureInput.setBounds(200, 220, 170, 25);
+        tempLabel.setBounds(25, 260, 170, 25);
+        tempInput.setBounds(200, 260, 170, 25);
+        erLabel.setBounds(25, 300, 240, 25);
+        erInput.setBounds(260, 300, 120, 25);
+        backButton.setBounds(60, 340, 90, 30);
+        finish.setBounds(165, 340, 150, 30);
 
         frame.add(patientPanel);
         frame.add(primaryLabel);
@@ -93,13 +99,15 @@ public class TriageFrame {
         frame.add(painInput);
         frame.add(hrLabel);
         frame.add(hrInput);
+        frame.add(pressureLabel);
+        frame.add(pressureInput);
         frame.add(tempLabel);
         frame.add(tempInput);
         frame.add(erLabel);
         frame.add(erInput);
         frame.add(backButton);
         frame.add(finish);
-        frame.setSize(400, 380);
+        frame.setSize(400, 420);
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
