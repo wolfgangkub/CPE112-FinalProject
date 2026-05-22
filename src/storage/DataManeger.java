@@ -1,3 +1,11 @@
+/*
+  ไฟล์: DataManeger.java
+  ทำหน้าที่: อ่านและเขียนข้อมูลผู้ป่วยในไฟล์ CSV
+  รายละเอียด: ลงทะเบียนผู้ป่วยใหม่, ค้นหา ID, โหลดข้อมูล Patient จากไฟล์
+  โครงสร้างข้อมูล: ใช้ไฟล์ CSV เป็นแหล่งข้อมูลหลัก ไม่มีโครงสร้างข้อมูลภายในอื่น ๆ
+  อัลกอริทึม: ใช้ BufferedReader อ่านทีละบรรทัด, split(",") เพื่อแยกฟิลด์, และ BufferedWriter เขียนบรรทัดใหม่
+  วิธีทดสอบ: เรียก register() แล้วตรวจไฟล์ Patient.csv, เรียก findPatient() / returnPatient() เพื่อตรวจสอบผล
+*/
 package storage;
 
 import java.io.BufferedReader;
@@ -10,6 +18,9 @@ import model.Patient;
 public class DataManeger {
     private static final String PATIENT_FILE = "src/Data/Patient.csv";
 
+    /**
+     * บันทึกข้อมูลผู้ป่วยใหม่ลงไฟล์ CSV
+     */
     public void register(String id, String name, int age, String gender, String disease, String bloodGroup) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(PATIENT_FILE, true))) {
             String line = String.format("%s,%s,%d,%s,%s,%s", id, name, age, gender, disease, bloodGroup);
@@ -20,6 +31,10 @@ public class DataManeger {
         }
     }
 
+    /**
+     * ค้นหา ID ในไฟล์ผู้ป่วย
+     * @return true หากพบ ID
+     */
     public boolean findPatient(String searchId) {
         try (BufferedReader reader = new BufferedReader(new FileReader(PATIENT_FILE))) {
             String line;
@@ -36,6 +51,9 @@ public class DataManeger {
         }
     }
 
+    /**
+     * คืนค่าโรคประจำตัวของผู้ป่วยจากไฟล์
+     */
     public String returnDisease(String id) {
         try (BufferedReader reader = new BufferedReader(new FileReader(PATIENT_FILE))) {
             String line;
@@ -51,6 +69,9 @@ public class DataManeger {
         return "";
     }
 
+    /**
+     * คืนค่าชื่อผู้ป่วยจากไฟล์
+     */
     public String returnName(String id) {
         try (BufferedReader reader = new BufferedReader(new FileReader(PATIENT_FILE))) {
             String line;
@@ -66,6 +87,9 @@ public class DataManeger {
         return "";
     }
 
+    /**
+     * โหลดข้อมูลผู้ป่วยจากไฟล์และสร้าง Patient object
+     */
     public Patient returnPatient(String id) {
         try (BufferedReader reader = new BufferedReader(new FileReader(PATIENT_FILE))) {
             String line;

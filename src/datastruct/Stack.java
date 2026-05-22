@@ -2,6 +2,14 @@ package datastruct;
 
 import model.Patient;
 
+/*
+  ไฟล์: Stack.java
+  ทำหน้าที่: โครงสร้างข้อมูลสแตกสำหรับเก็บประวัติชั่วคราว
+  รายละเอียด: push และ pop ข้อมูล Patient ในลักษณะ LIFO
+  โครงสร้างข้อมูล: ลิงก์ลิสต์แบบ singly linked list
+  อัลกอริทึม: push เพิ่มบนสุด, pop ดึงบนสุด
+  วิธีทดสอบ: push ข้อมูลหลายรายการแล้ว pop ออกมาทีละรายการเพื่อตรวจลำดับ
+*/
 public class Stack {
     private Node top;
 

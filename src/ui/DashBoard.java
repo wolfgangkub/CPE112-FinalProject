@@ -1,3 +1,11 @@
+/*
+  ไฟล์: DashBoard.java
+  ทำหน้าที่: แสดงคิวผู้ป่วยของแต่ละแผนกและเรียกคิวถัดไป
+  รายละเอียด: มี panel แยกตามแผนก Emergency, CADIO, ORTHO, NEURO, GENERAL พร้อมปุ่มเรียกคิวและรีเฟรช
+  โครงสร้างข้อมูล: ใช้ Queue และ PriorityQueue จาก QueueManeger
+  อัลกอริทึม: เรียก dequeue() จากคิวแต่ละแผนกและบันทึกประวัติเมื่อเรียกผู้ป่วย
+  วิธีทดสอบ: หลังเพิ่มผู้ป่วยในคิว ให้เปิด Dashboard แล้วเรียกคิวตรวจสอบการทำงาน
+*/
 package ui;
 
 import java.awt.Color;
@@ -17,6 +25,10 @@ import java.awt.Toolkit;
 import storage.History;
 
 public class DashBoard {
+    /**
+     * เปิดหน้า Dashboard และแสดงคิวผู้ป่วยในแต่ละแผนก
+     * พร้อมปุ่มเรียกคิวถัดไปและตัวเลือกดูประวัติ
+     */
     public static void main(String[] args) {
         History history = new History();
         JFrame frame = new JFrame("Dashboard");
@@ -216,6 +228,11 @@ public class DashBoard {
 
     }
 
+    /**
+     * อัพเดตแสดงรายการผู้ป่วยใน panel ของแต่ละคิว
+     * @param box พื้นที่ UI ที่จะแสดงรายการ
+     * @param queue คิวที่ต้องการแสดง
+     */
     public static void updateQueueView(JPanel box, Queue queue) {
         box.removeAll();
         int y = 5;
@@ -237,6 +254,10 @@ public class DashBoard {
         box.repaint();
     }
 
+    /**
+     * เล่นเสียง beep ซ้ำสำหรับสัญญาณฉุกเฉิน
+     * ปัจจุบันยังไม่ถูกเรียกใช้ในโค้ดหลักแต่เตรียมไว้สำหรับเตือน
+     */
     public static void emergencyBeep() {
         new Thread(() -> {
             try {

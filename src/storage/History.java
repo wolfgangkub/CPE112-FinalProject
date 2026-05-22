@@ -1,3 +1,11 @@
+/*
+  ไฟล์: History.java
+  ทำหน้าที่: บันทึกและแสดงประวัติการรักษาของผู้ป่วย
+  รายละเอียด: เขียนประวัติลง History.csv และอ่านคืนตามวันที่
+  โครงสร้างข้อมูล: ใช้ไฟล์ CSV เป็นแหล่งข้อมูลหลัก และใช้ Stack ชั่วคราวเพื่อกลับลำดับข้อมูล
+  อัลกอริทึม: insert() บันทึกวันปัจจุบัน + ข้อมูลผู้ป่วย, show() วนอ่านไฟล์กรองวันที่และเก็บไว้ใน tempStack
+  วิธีทดสอบ: เรียก insert() แล้วตรวจไฟล์ History.csv และเรียก showToday() / show(date)
+*/
 package storage;
 
 import java.io.BufferedReader;
@@ -15,6 +23,10 @@ public class History {
     private static final String HISTORY_FILE = "src/Data/History.csv";
     private Stack historyStack = new Stack();
 
+    /**
+     * บันทึกประวัติการรักษาลงไฟล์ History.csv
+     * และเก็บไว้ใน stack ชั่วคราว
+     */
     public void insert(String id, String name, String symptom, String department) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String today = LocalDate.now().format(formatter);
@@ -35,12 +47,19 @@ public class History {
         }
     }
 
+    /**
+     * แสดงประวัติของวันนี้
+     */
     public String showToday() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String today = LocalDate.now().format(formatter);
         return show(today);
     }
 
+    /**
+     * อ่านประวัติจากไฟล์ตามวันที่ที่กำหนด
+     * @param date วันที่ในรูปแบบ dd/MM/yyyy
+     */
     public String show(String date) {
         // อ่านจากไฟล์ CSV แล้ว push เข้า Stack เพื่อกลับลำดับ (คนใหม่สุดอยู่บนสุด)
         Stack tempStack = new Stack();

@@ -1,12 +1,30 @@
 package logic;
 
+/*
+  ไฟล์: TriageMeneger.java
+  ทำหน้าที่: ประเมินอาการของผู้ป่วยเพื่อคำนวณคะแนนฉุกเฉิน
+  รายละเอียด: แปลงค่า pain, hr, temp เป็นคะแนนย่อย แล้วคำนวณ ISS เป็นความสำคัญของผู้ป่วย
+  โครงสร้างข้อมูล: ใช้เมธอดในคลาสเดียว ไม่ใช้โครงสร้างข้อมูลพิเศษ
+  อัลกอริทึม: เงื่อนไขช่วงค่าและสูตรคะแนนกำลังสอง
+  วิธีทดสอบ: เรียก priorityScore กับค่าต่าง ๆ แล้วตรวจผลลัพธ์ตามช่วงที่คาดไว้
+*/
+
 public class TriageMeneger {
 
+    /**
+     * คำนวณคะแนนความสำคัญสำหรับการจัดลำดับผู้ป่วยฉุกเฉิน
+     * ใช้คะแนนย่อยจากอาการปวด, อัตราการเต้นหัวใจ, และอุณหภูมิ
+     */
     public int priorityScore(int pain, int hr, double temp) {
         int ISS = (pain(pain) * pain(pain)) + (hrScore(hr) * hrScore(hr)) + (tempScore(temp) * tempScore(temp));
         return ISS;
     }
 
+    /**
+     * ประเมินคะแนนจากระดับความเจ็บปวด
+     * @param pain ระดับความเจ็บปวด 0-10
+     * @return คะแนนย่อยสำหรับ pain
+     */
     public int pain(int pain) {
         if (pain == 0) {
             return 0;
@@ -23,6 +41,11 @@ public class TriageMeneger {
         }
     }
 
+    /**
+     * ประเมินคะแนนจากอัตราการเต้นของหัวใจ
+     * @param hr ค่าชีพจร (ครั้งต่อนาที)
+     * @return คะแนนย่อยสำหรับ hr
+     */
     public int hrScore(int hr) {
         if (hr >= 60 && hr <= 100) {
             return 0;
@@ -39,6 +62,11 @@ public class TriageMeneger {
         }
     }
 
+    /**
+     * ประเมินคะแนนจากอุณหภูมิร่างกาย
+     * @param temp อุณหภูมิหน่วยเซลเซียส
+     * @return คะแนนย่อยสำหรับ temp
+     */
     public int tempScore(double temp) {
         if (temp >= 36.0 && temp <= 37.5) {
             return 0;

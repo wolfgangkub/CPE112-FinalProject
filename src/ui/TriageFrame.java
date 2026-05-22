@@ -1,3 +1,11 @@
+/*
+  ไฟล์: TriageFrame.java
+  ทำหน้าที่: หน้าซักประวัติและประเมินอาการผู้ป่วยก่อนจัดคิว
+  รายละเอียด: รับข้อมูลอาการเบื้องต้น, ระดับปวด, HR, อุณหภูมิ, สถานะฉุกเฉิน แล้วส่งข้อมูลเข้า QueueManeger
+  โครงสร้างข้อมูล: ใช้ Swing UI components และส่งต่อ Patient object
+  อัลกอริทึม: เมื่อกดประเมินจะเรียก QueueManeger.sendPatient() เพื่อจัดผู้ป่วยไปคิวตามเกณฑ์
+  วิธีทดสอบ: เปิดหน้าโดยมี Patient แล้วกรอกข้อมูลและกดประเมิน ดูว่าผู้ป่วยไปอยู่คิวถูกต้อง
+*/
 package ui;
 
 import java.awt.Font;
@@ -20,10 +28,16 @@ import model.Patient;
 import storage.History;
 
 public class TriageFrame {
+    /**
+     * เปิดหน้า TriageFrame โดยไม่มีผู้ป่วยเริ่มต้น
+     */
     public static void main(String[] args) {
         open(null);
     }
 
+    /**
+     * เปิดหน้าซักประวัติและประเมินอาการสำหรับผู้ป่วยที่ได้รับข้อมูลไว้แล้ว
+     */
     public static void open(Patient patient) {
         History history = new History();
         JFrame frame = new JFrame("ซักประวัติและอาการ");

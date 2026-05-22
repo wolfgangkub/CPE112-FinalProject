@@ -1,3 +1,11 @@
+/*
+  ไฟล์: HistoryFrame.java
+  ทำหน้าที่: หน้า UI สำหรับดูประวัติการรักษาตามวันที่
+  รายละเอียด: รับวันที่จากผู้ใช้ แล้วแสดงผลประวัติที่บันทึกใน History.csv
+  โครงสร้างข้อมูล: ใช้ Swing UI components และเรียก History.show(date)
+  อัลกอริทึม: แปลงผลลัพธ์ข้อความเป็น label แต่ละบรรทัดใน panel
+  วิธีทดสอบ: กดดูประวัติในวันที่มีการบันทึกจาก Dashboard แล้วตรวจผลลัพธ์
+*/
 package ui;
 
 import java.awt.Color;
@@ -14,6 +22,9 @@ import datastruct.Queue;
 import storage.History;
 
 public class HistoryFrame {
+    /**
+     * เปิดหน้า HistoryFrame เพื่อให้ผู้ใช้ดูประวัติการรักษาตามวันที่
+     */
     public static void main(String[] args) {
         History history = new History();
         JFrame frame = new JFrame("History system");
@@ -67,6 +78,11 @@ public class HistoryFrame {
         frame.setVisible(true);
     }
 
+    /**
+     * อัพเดตแสดงประวัติการรักษาลงใน panel
+     * @param box พื้นที่ UI ที่จะแสดงข้อความ
+     * @param text ข้อความข้อมูลประวัติเรียงบรรทัด
+     */
     public static void updateHistory(JPanel box, String text) {
         box.removeAll();
 

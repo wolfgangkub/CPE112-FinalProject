@@ -1,3 +1,11 @@
+/*
+  ไฟล์: RegisterFrame.java
+  ทำหน้าที่: หน้า UI สำหรับลงทะเบียนผู้ป่วยใหม่
+  รายละเอียด: รับข้อมูลพื้นฐานผู้ป่วยใหม่แล้วบันทึกลง Patient.csv ก่อนส่งไปหน้าซักประวัติ
+  โครงสร้างข้อมูล: ใช้ Swing component เป็นฟอร์มและ DataManeger เป็นตัวจัดการข้อมูล
+  อัลกอริทึม: เมื่อกด Save จะเรียก DataManeger.register() และสร้าง Patient object
+  วิธีทดสอบ: กรอกข้อมูลใหม่แล้วกด Save ตรวจว่าไฟล์ Patient.csv เพิ่มบรรทัดใหม่
+*/
 package ui;
 
 import javax.swing.JButton;
@@ -14,10 +22,16 @@ import model.Patient;
 import storage.DataManeger;
 
 public class RegisterFrame {
+    /**
+     * เปิดหน้า RegisterFrame โดยไม่มี ID เริ่มต้น
+     */
     public static void main(String[] args) {
         open("");
     }
 
+    /**
+     * เปิดหน้าลงทะเบียน และรับ ID ที่ส่งมาจาก WelcomeFrame
+     */
     public static void open(String id) {
         DataManeger data = new DataManeger();
         JFrame frame = new JFrame("Register");

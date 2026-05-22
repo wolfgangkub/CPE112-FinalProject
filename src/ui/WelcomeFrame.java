@@ -1,3 +1,11 @@
+/*
+  ไฟล์: WelcomeFrame.java
+  ทำหน้าที่: หน้าเริ่มต้นของโปรแกรมสำหรับกรอก ID ผู้ป่วย
+  รายละเอียด: ค้นหา ID ในไฟล์ Patient.csv, ไปหน้าซักประวัติถ้าพบ, ไปหน้าลงทะเบียนถ้าไม่พบ
+  โครงสร้างข้อมูล: ใช้งาน Swing UI components ไม่มีโครงสร้างข้อมูลเพิ่มเติม
+  อัลกอริทึม: ตรวจสอบการมีอยู่ของ ID โดยเรียก DataManeger.findPatient(id)
+  วิธีทดสอบ: เปิดหน้าแล้วกรอก ID ที่มีและไม่มีใน Patient.csv ดูการเปลี่ยนหน้า
+*/
 package ui;
 
 import java.awt.Font;
@@ -12,6 +20,10 @@ import storage.DataManeger;
 import model.Patient;
 
 public class WelcomeFrame {
+    /**
+     * เปิดหน้าจอต้อนรับและให้ผู้ใช้กรอก ID ผู้ป่วย
+     * ถ้ามีข้อมูลในระบบจะไปหน้าซักประวัติ, ถ้าไม่มีก็ไปหน้าลงทะเบียน
+     */
     public static void main(String[] args) {
         DataManeger data = new DataManeger();
         setUIFont(new FontUIResource(new Font("Tahoma", Font.PLAIN, 14)));
@@ -50,6 +62,9 @@ public class WelcomeFrame {
         frame.setVisible(true);
     }
 
+    /**
+     * ตั้งค่า Font ของ UI ให้อยู่ในรูปแบบเดียวกันทั่วทั้งแอป
+     */
     private static void setUIFont(FontUIResource font) {
         Enumeration<Object> keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
